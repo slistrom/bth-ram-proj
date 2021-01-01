@@ -1,3 +1,3 @@
-#### Footer col 3
+#### About me
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+My name is Stefan and i study second year at BTH on the program webprogramming. You can reach me at stli19@student.bth.se.

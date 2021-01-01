@@ -1,5 +1,5 @@
 ---
-title: "Front page"
+title: "One Place"
 ---
 One place for all your questions about crystals
 =========================

@@ -10,24 +10,34 @@ return [
     // Here comes the menu items
     "items" => [
         [
-            "text" => "Hem",
+            "text" => "Home",
             "url" => "",
-            "title" => "Första sidan, börja här.",
+            "title" => "One Place home page.",
         ],
         [
-            "text" => "Om",
-            "url" => "om",
-            "title" => "Om denna webbplats.",
+            "text" => "Posts",
+            "url" => "forum/posts",
+            "title" => "Forum posts.",
         ],
         [
-            "text" => "Styleväljare",
-            "url" => "style",
-            "title" => "Välj stylesheet.",
+            "text" => "Tags",
+            "url" => "forum/tags",
+            "title" => "Forum tags.",
         ],
         [
-            "text" => "Verktyg",
-            "url" => "verktyg",
-            "title" => "Verktyg och möjligheter för utveckling.",
+            "text" => "Users",
+            "url" => "forum/users",
+            "title" => "Forum users.",
+        ],
+        [
+            "text" => "About",
+            "url" => "about",
+            "title" => "About this website.",
+        ],
+        [
+            "text" => "Login",
+            "url" => "auth/login",
+            "title" => "User login.",
         ],
     ],
 ];

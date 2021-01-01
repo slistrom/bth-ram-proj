@@ -1,3 +1,3 @@
-#### Footer col 1
+#### About this site
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+This site is created as a part of the course ramverk1 in the program webprogramming at Blekinge Tekniska Högskola.

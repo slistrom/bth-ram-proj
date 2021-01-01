@@ -6,17 +6,10 @@ views:
         data:
             meta: 
                 type: single
-                route: block/om-kursrepo
+                route: block/about-site
 
-    redovisa:
-        region: sidebar-right
-        template: anax/v2/block/default
-        data:
-            meta: 
-                type: single
-                route: block/om-redovisa
 ---
-Om
+About
 =========================
 
 Detta innehåll är skrivet i markdown och du hittar innehållet i filen `content/om.md`.
