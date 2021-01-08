@@ -14,7 +14,7 @@ class CreateUserForm extends FormModel
     /**
      * Constructor injects with DI container.
      *
-     * @param Psr\Container\ContainerInterface $di a service container
+     * @param \Psr\Container\ContainerInterface $di a service container
      */
     public function __construct(ContainerInterface $di)
     {
@@ -25,7 +25,15 @@ class CreateUserForm extends FormModel
                 "legend" => "Create user",
             ],
             [
-                "acronym" => [
+                "email" => [
+                    "type"        => "text",
+                ],
+
+                "first-name" => [
+                    "type"        => "text",
+                ],
+
+                "last-name" => [
                     "type"        => "text",
                 ],
 
@@ -59,7 +67,9 @@ class CreateUserForm extends FormModel
     public function callbackSubmit()
     {
         // Get values from the submitted form
-        $acronym       = $this->form->value("acronym");
+        $acronym       = $this->form->value("email");
+        $firstname     = $this->form->value("first-name");
+        $lastname      = $this->form->value("last-name");
         $password      = $this->form->value("password");
         $passwordAgain = $this->form->value("password-again");
 
@@ -80,6 +90,8 @@ class CreateUserForm extends FormModel
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
         $user->acronym = $acronym;
+        $user->firstname = $firstname;
+        $user->lastname = $lastname;
         $user->setPassword($password);
         $user->save();
 

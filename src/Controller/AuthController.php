@@ -12,20 +12,11 @@ use Lii\Model\User\CreateUserForm;
 // use Anax\Route\Exception\InternalErrorException;
 
 /**
- * A sample controller to show how a controller class can be implemented.
+ * A controller to handle authorization
  */
 class AuthController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
-
-
-
-    /**
-     * @var $data description
-     */
-    //private $data;
-
-
 
     // /**
     //  * The initialize method is optional and will always be called before the
@@ -40,11 +31,8 @@ class AuthController implements ContainerInjectableInterface
     }
 
 
-
     /**
      * Description.
-     *
-     * @param datatype $variable Description
      *
      * @throws Exception
      *
@@ -63,40 +51,76 @@ class AuthController implements ContainerInjectableInterface
         ]);
     }
 
+//     /**
+//      * This function test to see that a user is logged in.
+//      * If not, user is redirected to loginpage.
+//      */
+//     private function testAuth()
+//     {
+//         $session = $this->di->get("session");
+//         $auth = $session->get("authenticated");
+//         var_dump($auth);
+//
+//         if ($auth != "yes") {
+//             return $this->di->response->redirect("auth/login");
+//         }
+//     }
 
 
     /**
-     * Description.
-     *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
+     * Function to login a user.
      *
      * @return object as a response object
      */
     public function loginAction() : object
     {
         $page = $this->di->get("page");
+
         $form = new UserLoginForm($this->di);
         $form->check();
 
-        $page->add("anax/v2/article/default", [
+        $session = $this->di->get("session");
+        $user = $session->get("user");
+
+        $page->add("user/login", [
             "content" => $form->getHTML(),
+            "user" => $user,
         ]);
 
         return $page->render([
-            "title" => "A login page",
+            "title" => "Login user",
         ]);
     }
 
+    /**
+     * Function to logout a user.
+     *
+     * @return object as a response object
+     */
+    public function logoutAction() : object
+    {
+//         $page = $this->di->get("page");
+//
+//         $form = new UserLoginForm($this->di);
+//         $form->check();
 
+        $session = $this->di->get("session");
+//         $user = $session->get("user");
+        $session->destroy();
+
+//         $page->add("user/default", [
+//             "content" => $form->getHTML(),
+//             "user" => $user,
+//         ]);
+//
+//         return $page->render([
+//             "title" => "Login user",
+//         ]);
+        return $this->di->response->redirect("auth/login");
+    }
 
     /**
-     * Description.
-     *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
+     * Function to register a user.
      *
      * @return object as a response object
      */
@@ -106,12 +130,12 @@ class AuthController implements ContainerInjectableInterface
         $form = new CreateUserForm($this->di);
         $form->check();
 
-        $page->add("anax/v2/article/default", [
+        $page->add("user/create", [
             "content" => $form->getHTML(),
         ]);
 
         return $page->render([
-            "title" => "A create user page",
+            "title" => "Create user",
         ]);
     }
 }

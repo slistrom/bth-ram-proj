@@ -21,11 +21,25 @@ class User extends ActiveRecordModel
      */
     public $id;
     public $acronym;
+    public $firstname;
+    public $lastname;
     public $password;
     public $created;
     public $updated;
     public $deleted;
     public $active;
+
+    /**
+     * Set the acronym.
+     *
+     * @param string $acronym the acronym to use.
+     *
+     * @return void
+     */
+    public function setAcronym($acronym)
+    {
+        $this->acronym = $acronym;
+    }
 
     /**
      * Set the password.

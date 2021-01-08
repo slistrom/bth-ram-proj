@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS User;
 CREATE TABLE User (
     "id" INTEGER PRIMARY KEY NOT NULL,
     "acronym" TEXT UNIQUE NOT NULL,
+    "firstname" TEXT,
+    "lastname" TEXT,
     "password" TEXT,
     "created" TIMESTAMP,
     "updated" DATETIME,

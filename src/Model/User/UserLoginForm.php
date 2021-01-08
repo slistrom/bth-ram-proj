@@ -14,7 +14,7 @@ class UserLoginForm extends FormModel
     /**
      * Constructor injects with DI container.
      *
-     * @param Psr\Container\ContainerInterface $di a service container
+     * @param \Psr\Container\ContainerInterface $di a service container
      */
     public function __construct(ContainerInterface $di)
     {
@@ -86,6 +86,10 @@ class UserLoginForm extends FormModel
             $this->form->addOutput("User or password did not match.");
             return false;
         }
+
+        $session = $this->di->get("session");
+        $session->set("userId", $user->id);
+        $session->set("authenticated", "yes");
 
         $this->form->addOutput("User " . $user->acronym . " logged in.");
         return true;
