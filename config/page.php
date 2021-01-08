@@ -43,8 +43,8 @@ return [
             "data" => [
                 "homeLink"      => "",
                 "siteLogoText"  => "One Place",
-                "siteLogoTextIcon" => "image/theme/leaf_40x40.png",
-                "siteLogoTextIconAlt" => "Löv-bild",
+                "siteLogoTextIcon" => "image/OnePlace_logo_s.jpg",
+                "siteLogoTextIconAlt" => "OP-logga-liten",
             ],
         ],
         [
