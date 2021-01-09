@@ -8,12 +8,12 @@ use Lii\Model\Textfilter\MyTextfilter;
 /**
  * A database driven model using the Active Record design pattern.
  */
-class Question extends ActiveRecordModel
+class Acomment extends ActiveRecordModel
 {
     /**
      * @var string $tableName name of the database table.
      */
-    protected $tableName = "Question";
+    protected $tableName = "Acomment";
 
 
 
@@ -23,10 +23,9 @@ class Question extends ActiveRecordModel
      * @var integer $id primary key auto incremented.
      */
     public $id;
-    public $title;
     public $text;
+    public $answId;
     public $userId;
-    public $answered;
     public $created;
     public $updated;
     public $deleted;

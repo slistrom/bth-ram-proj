@@ -27,7 +27,9 @@ if (isset($class)) {
 <h4>Questions by user</h4>
 
 <?php foreach ($questions as $question) : ?>
-    <a href="<?= url("forum/showquestion/{$question->id}"); ?>"><?= $question->title ?></a><br>
+    <a href="<?= url("forum/showquestion/{$question->id}"); ?>"><?= $question->title ?></a>
+    <?= $question->answered ?>
+    <br>
 <?php endforeach; ?>
 
 </article>

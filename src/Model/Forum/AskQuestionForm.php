@@ -82,6 +82,7 @@ class AskQuestionForm extends FormModel
         $question->title = $title;
         $question->text = $text;
         $question->userId = $userId;
+        $question->created = date("Y-m-d");
         $question->save();
 
         $sql = "SELECT MAX(id) AS id FROM Question;";

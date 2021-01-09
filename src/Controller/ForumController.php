@@ -5,7 +5,11 @@ namespace Lii\Controller;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Lii\Model\Forum\Question;
+use Lii\Model\Forum\Answer;
 use Lii\Model\Forum\AskQuestionForm;
+use Lii\Model\Forum\AnswerQuestionForm;
+use Lii\Model\Forum\CommentQuestionForm;
+use Lii\Model\Forum\CommentAnswerForm;
 use Lii\Model\Forum\Tag;
 use Lii\Model\User\User;
 
@@ -114,25 +118,60 @@ class ForumController implements ContainerInjectableInterface
     /**
      * Function to show a specific question.
      *
-     * @param int $id the id to update.
+     * @param int $id the id to show.
      *
      * @return object as a response object
      */
     public function showQuestionAction(int $id) : object
     {
         $page = $this->di->get("page");
+        $db = $this->di->get("dbqb");
+        $db->connect();
 
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
         $question->find("id", $id);
+        $text = $question->getDataFiltered("markdown");
 
         $sql = "SELECT text FROM tag WHERE questid = $id;";
-        $db = $this->di->get("dbqb");
-        $db->connect();
+//         $db = $this->di->get("dbqb");
+//         $db->connect();
         $tags = $db->executeFetchAll($sql);
+
+        $sql2 = "SELECT * FROM answer WHERE questid = $id;";
+//         $db = $this->di->get("dbqb");
+//         $db->connect();
+        $answers = $db->executeFetchAll($sql2);
+
+        $answerArray = array();
+//         $db = $this->di->get("dbqb");
+//         $db->connect();
+        foreach ($answers as $answer) {
+            $newAnswer = new Answer();
+            $newAnswer->setDb($this->di->get("dbqb"));
+            $newAnswer->find("id", $answer->id);
+//            $idx = $qid->questId;
+//            $sql = "select * from question where id = $idx;";
+            array_push($answerArray, $newAnswer);
+        }
+
+        $sql3 = "SELECT * FROM qcomment WHERE questid = $id;";
+//         $db = $this->di->get("dbqb");
+//         $db->connect();
+        $qcomments = $db->executeFetchAll($sql3);
+
+        $sql4 = "SELECT * FROM acomment";
+//         $db = $this->di->get("dbqb");
+//         $db->connect();
+        $acomments = $db->executeFetchAll($sql4);
 
         $page->add("forum/showquestion", [
             "question" => $question,
+            "answers" => $answers,
+            "answerArray" => $answerArray,
+            "qcomments" => $qcomments,
+            "acomments" => $acomments,
+            "text" => $text,
             "tags" => $tags,
         ]);
 
@@ -141,6 +180,100 @@ class ForumController implements ContainerInjectableInterface
         ]);
     }
 
+    /**
+     * Function to answer a question.
+     *
+     * @param int $id the question id.
+     *
+     * @return object as a response object
+     */
+    public function answerAction(int $questId) : object
+    {
+        $this->testAuth();
+
+        $question = new Question();
+        $question->setDb($this->di->get("dbqb"));
+        $question->find("id", $questId);
+        $text = $question->getDataFiltered("markdown");
+
+        $page = $this->di->get("page");
+        $form = new AnswerQuestionForm($this->di, $questId);
+        $form->check();
+
+
+
+        $page->add("forum/answer", [
+            "content" => $form->getHTML(),
+            "question" => $question,
+            "text" => $text,
+        ]);
+
+        return $page->render([
+            "title" => "Answer question",
+        ]);
+    }
+
+    /**
+     * Function to comment a question.
+     *
+     * @param int $id the question id.
+     *
+     * @return object as a response object
+     */
+    public function commentQAction(int $questId) : object
+    {
+        $this->testAuth();
+
+        $question = new Question();
+        $question->setDb($this->di->get("dbqb"));
+        $question->find("id", $questId);
+        $text = $question->getDataFiltered("markdown");
+
+        $page = $this->di->get("page");
+        $form = new CommentQuestionForm($this->di, $questId);
+        $form->check();
+
+        $page->add("forum/qcomment", [
+            "content" => $form->getHTML(),
+            "question" => $question,
+            "text" => $text,
+        ]);
+
+        return $page->render([
+            "title" => "Comment question",
+        ]);
+    }
+
+    /**
+     * Function to comment an answer.
+     *
+     * @param int $id the question id.
+     *
+     * @return object as a response object
+     */
+    public function commentAAction(int $answId) : object
+    {
+        $this->testAuth();
+
+        $answer = new Answer();
+        $answer->setDb($this->di->get("dbqb"));
+        $answer->find("id", $answId);
+        $text = $answer->getDataFiltered("markdown");
+
+        $page = $this->di->get("page");
+        $form = new CommentAnswerForm($this->di, $answId, $answer->questId);
+        $form->check();
+
+        $page->add("forum/acomment", [
+            "content" => $form->getHTML(),
+            "answer" => $answer,
+            "text" => $text,
+        ]);
+
+        return $page->render([
+            "title" => "Comment answer",
+        ]);
+    }
 
     /**
      * Function to show all forum users.
