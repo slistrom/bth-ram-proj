@@ -41,7 +41,7 @@ return [
             "region" => "header-col-1",
             "template" => "anax/v2/header/site_logo_text",
             "data" => [
-                "homeLink"      => "",
+                "homeLink"      => "home",
                 "siteLogoText"  => "One Place",
                 "siteLogoTextIcon" => "image/OnePlace_logo_s.jpg",
                 "siteLogoTextIconAlt" => "OP-logga-liten",

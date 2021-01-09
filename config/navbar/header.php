@@ -15,7 +15,7 @@ if ($auth == "no") {
         "items" => [
             [
                 "text" => "Home",
-                "url" => "",
+                "url" => "home",
                 "title" => "One Place home page.",
             ],
             [
@@ -55,7 +55,7 @@ if ($auth == "no") {
         "items" => [
             [
                 "text" => "Home",
-                "url" => "",
+                "url" => "home",
                 "title" => "One Place home page.",
             ],
             [
