@@ -12,7 +12,7 @@ CREATE TABLE User (
     "firstname" TEXT,
     "lastname" TEXT,
     "password" TEXT,
-    "created" TIMESTAMP,
+    "created" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updated" DATETIME,
     "deleted" DATETIME,
     "active" DATETIME

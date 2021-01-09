@@ -12,6 +12,7 @@ CREATE TABLE Question (
     "title" TEXT NOT NULL,
     "text" TEXT,
     "userId" INTEGER,
+    "answered" TEXT,
     "created" TIMESTAMP,
     "updated" DATETIME,
     "deleted" DATETIME,
