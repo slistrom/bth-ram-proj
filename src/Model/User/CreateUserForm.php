@@ -5,6 +5,7 @@ namespace Lii\Model\User;
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
 use Lii\Model\User\User;
+use \DateTime;
 
 /**
  * Example of FormModel implementation.
@@ -26,7 +27,7 @@ class CreateUserForm extends FormModel
             ],
             [
                 "email" => [
-                    "type"        => "text",
+                    "type"        => "email",
                 ],
 
                 "first-name" => [
@@ -66,12 +67,15 @@ class CreateUserForm extends FormModel
      */
     public function callbackSubmit()
     {
+//         $date = new DateTime($this->published);
+
         // Get values from the submitted form
         $acronym       = $this->form->value("email");
         $firstname     = $this->form->value("first-name");
         $lastname      = $this->form->value("last-name");
         $password      = $this->form->value("password");
         $passwordAgain = $this->form->value("password-again");
+        $created       = date("Y-m-d");
 
         // Check password matches
         if ($password !== $passwordAgain) {
@@ -93,6 +97,7 @@ class CreateUserForm extends FormModel
         $user->firstname = $firstname;
         $user->lastname = $lastname;
         $user->setPassword($password);
+        $user->created = $created;
         $user->save();
 
         $this->form->addOutput("User was created.");
