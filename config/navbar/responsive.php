@@ -2,33 +2,94 @@
 /**
  * Supply the basis for the navbar as an array.
  */
-return [
-    // Use for styling the menu
-    "id" => "rm-menu",
-    "wrapper" => null,
-    "class" => "rm-default rm-mobile",
- 
-    // Here comes the menu items
-    "items" => [
-        [
-            "text" => "Hem",
-            "url" => "",
-            "title" => "Första sidan, börja här.",
+
+$auth = $_SESSION["authenticated"] ?? "no";
+
+if ($auth == "no") {
+    return [
+        // Use for styling the menu
+        "id" => "rm-menu",
+        "wrapper" => null,
+        "class" => "rm-default rm-mobile",
+
+        // Here comes the menu items
+        "items" => [
+            [
+                "text" => "Home",
+                "url" => "home",
+                "title" => "One Place home page.",
+            ],
+            [
+                "text" => "Questions",
+                "url" => "forum/questions",
+                "title" => "Forum posts.",
+            ],
+            [
+                "text" => "Tags",
+                "url" => "forum/tags",
+                "title" => "Forum tags.",
+            ],
+            [
+                "text" => "Users",
+                "url" => "forum/users",
+                "title" => "Forum users.",
+            ],
+            [
+                "text" => "About",
+                "url" => "about",
+                "title" => "About this website.",
+            ],
+            [
+                "text" => "Login",
+                "url" => "auth/login",
+                "title" => "User login.",
+            ],
         ],
-        [
-            "text" => "Om",
-            "url" => "om",
-            "title" => "Om denna webbplats.",
+    ];
+} else {
+    return [
+        // Use for styling the menu
+        "id" => "rm-menu",
+        "wrapper" => null,
+        "class" => "rm-default rm-mobile",
+
+        // Here comes the menu items
+        "items" => [
+            [
+                "text" => "Home",
+                "url" => "home",
+                "title" => "One Place home page.",
+            ],
+            [
+                "text" => "Questions",
+                "url" => "forum/questions",
+                "title" => "Forum posts.",
+            ],
+            [
+                "text" => "Tags",
+                "url" => "forum/tags",
+                "title" => "Forum tags.",
+            ],
+            [
+                "text" => "Users",
+                "url" => "forum/users",
+                "title" => "Forum users.",
+            ],
+            [
+                "text" => "About",
+                "url" => "about",
+                "title" => "About this website.",
+            ],
+            [
+                "text" => "My profile",
+                "url" => "user/profile",
+                "title" => "User profile.",
+            ],
+            [
+                "text" => "Logout",
+                "url" => "auth/logout",
+                "title" => "User logout.",
+            ],
         ],
-        [
-            "text" => "Styleväljare",
-            "url" => "style",
-            "title" => "Välj stylesheet.",
-        ],
-        [
-            "text" => "Verktyg",
-            "url" => "verktyg",
-            "title" => "Verktyg och möjligheter för utveckling.",
-        ],
-    ],
-];
+    ];
+}
