@@ -37,26 +37,6 @@ class ForumController implements ContainerInjectableInterface
     }
 
 
-//     /**
-//      * Description.
-//      *
-//      * @throws Exception
-//      *
-//      * @return object as a response object
-//      */
-//     public function indexAction() : object
-//     {
-//         $page = $this->di->get("page");
-//
-//         $page->add("anax/v2/article/default", [
-//             "content" => "An index page",
-//         ]);
-//
-//         return $page->render([
-//             "title" => "A index page",
-//         ]);
-//     }
-
     /**
      * This function test to see that a user is logged in.
      * If not, user is redirected to loginpage.
@@ -134,35 +114,23 @@ class ForumController implements ContainerInjectableInterface
         $text = $question->getDataFiltered("markdown");
 
         $sql = "SELECT text FROM tag WHERE questid = $id;";
-//         $db = $this->di->get("dbqb");
-//         $db->connect();
         $tags = $db->executeFetchAll($sql);
 
         $sql2 = "SELECT * FROM answer WHERE questid = $id;";
-//         $db = $this->di->get("dbqb");
-//         $db->connect();
         $answers = $db->executeFetchAll($sql2);
 
         $answerArray = array();
-//         $db = $this->di->get("dbqb");
-//         $db->connect();
         foreach ($answers as $answer) {
             $newAnswer = new Answer();
             $newAnswer->setDb($this->di->get("dbqb"));
             $newAnswer->find("id", $answer->id);
-//            $idx = $qid->questId;
-//            $sql = "select * from question where id = $idx;";
             array_push($answerArray, $newAnswer);
         }
 
         $sql3 = "SELECT * FROM qcomment WHERE questid = $id;";
-//         $db = $this->di->get("dbqb");
-//         $db->connect();
         $qcomments = $db->executeFetchAll($sql3);
 
         $sql4 = "SELECT * FROM acomment";
-//         $db = $this->di->get("dbqb");
-//         $db->connect();
         $acomments = $db->executeFetchAll($sql4);
 
         $page->add("forum/showquestion", [
@@ -335,8 +303,6 @@ class ForumController implements ContainerInjectableInterface
     public function tagsAction() : object
     {
         $page = $this->di->get("page");
-//         $tag = new Tag();
-//         $tag->setDb($this->di->get("dbqb"));
 
         $sql = "SELECT DISTINCT text FROM tag;";
         $db = $this->di->get("dbqb");
@@ -344,7 +310,6 @@ class ForumController implements ContainerInjectableInterface
         $tags = $db->executeFetchAll($sql);
 
         $page->add("forum/all-tags", [
-//             "items" => $tag->findAll(),
             "items" => $tags,
         ]);
 
@@ -363,9 +328,6 @@ class ForumController implements ContainerInjectableInterface
     public function showTagAction($id) : object
     {
         $page = $this->di->get("page");
-//         $tag = new Tag();
-//         $tag->setDb($this->di->get("dbqb"));
-//         $tag->find("id", $id);
 
         $sql = "select distinct questid from tag where text = '$id';";
         $db = $this->di->get("dbqb");
@@ -390,30 +352,4 @@ class ForumController implements ContainerInjectableInterface
             "title" => "Tag",
         ]);
     }
-
-//     /**
-//      * Handler with form to update an item.
-//      *
-//      * @return object as a response object
-//      */
-//     public function updateAction() : object
-//     {
-//         $this->testAuth();
-//
-//         $page = $this->di->get("page");
-//         $session = $this->di->get("session");
-//
-//         $userId = $session->get("userId");
-//
-//         $form = new UpdateUserForm($this->di, $userId);
-//         $form->check();
-//
-//         $page->add("user/update", [
-//             "form" => $form->getHTML(),
-//         ]);
-//
-//         return $page->render([
-//             "title" => "Update an item",
-//         ]);
-//     }
 }

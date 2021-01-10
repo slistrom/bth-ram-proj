@@ -67,12 +67,6 @@ class AskQuestionForm extends FormModel
         $tags        = $this->form->value("tags");
         $tagArray = explode(" ", $tags);
 
-        // Save to database
-//         $db = $this->di->get("dbqb");
-//         $password = password_hash($password, PASSWORD_DEFAULT);
-//         $db->connect()
-//            ->insert("User", ["acronym", "password"])
-//            ->execute([$acronym, $password]);
 
         $session = $this->di->get("session");
         $userId = $session->get("userId");

@@ -30,7 +30,6 @@ class AuthController implements ContainerInjectableInterface
         ;
     }
 
-
     /**
      * Description.
      *
@@ -50,22 +49,6 @@ class AuthController implements ContainerInjectableInterface
             "title" => "A index page",
         ]);
     }
-
-//     /**
-//      * This function test to see that a user is logged in.
-//      * If not, user is redirected to loginpage.
-//      */
-//     private function testAuth()
-//     {
-//         $session = $this->di->get("session");
-//         $auth = $session->get("authenticated");
-//         var_dump($auth);
-//
-//         if ($auth != "yes") {
-//             return $this->di->response->redirect("auth/login");
-//         }
-//     }
-
 
     /**
      * Function to login a user.
@@ -99,23 +82,10 @@ class AuthController implements ContainerInjectableInterface
      */
     public function logoutAction() : object
     {
-//         $page = $this->di->get("page");
-//
-//         $form = new UserLoginForm($this->di);
-//         $form->check();
 
         $session = $this->di->get("session");
-//         $user = $session->get("user");
         $session->destroy();
 
-//         $page->add("user/default", [
-//             "content" => $form->getHTML(),
-//             "user" => $user,
-//         ]);
-//
-//         return $page->render([
-//             "title" => "Login user",
-//         ]);
         return $this->di->response->redirect("auth/login");
     }
 

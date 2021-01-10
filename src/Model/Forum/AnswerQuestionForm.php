@@ -59,26 +59,15 @@ class AnswerQuestionForm extends FormModel
     public function callbackSubmit()
     {
         // Get values from the submitted form
-//         $title       = $this->form->value("title");
         $text        = $this->form->value("answer");
         $questId     = $this->form->value("questId");
 
-//         $tags        = $this->form->value("tags");
-//         $tagArray = explode(" ", $tags);
-
-        // Save to database
-//         $db = $this->di->get("dbqb");
-//         $password = password_hash($password, PASSWORD_DEFAULT);
-//         $db->connect()
-//            ->insert("User", ["acronym", "password"])
-//            ->execute([$acronym, $password]);
 
         $session = $this->di->get("session");
         $userId = $session->get("userId");
 
         $answer = new Answer();
         $answer->setDb($this->di->get("dbqb"));
-//         $answer->title = $title;
         $answer->text = $text;
         $answer->userId = $userId;
         $answer->questId = $questId;

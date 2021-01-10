@@ -31,26 +31,6 @@ class UserController implements ContainerInjectableInterface
     }
 
 
-//     /**
-//      * Description.
-//      *
-//      * @throws Exception
-//      *
-//      * @return object as a response object
-//      */
-//     public function indexAction() : object
-//     {
-//         $page = $this->di->get("page");
-//
-//         $page->add("anax/v2/article/default", [
-//             "content" => "An index page",
-//         ]);
-//
-//         return $page->render([
-//             "title" => "A index page",
-//         ]);
-//     }
-
     /**
      * This function test to see that a user is logged in.
      * If not, user is redirected to loginpage.
@@ -84,7 +64,6 @@ class UserController implements ContainerInjectableInterface
         $gravatar = getGravatar($user->acronym);
 
         $page->add("user/profile", [
-//             "content" => $form->getHTML(),
             "user" => $user,
             "gravatar" => $gravatar,
         ]);
