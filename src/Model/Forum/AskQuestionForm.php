@@ -76,7 +76,7 @@ class AskQuestionForm extends FormModel
         $question->title = $title;
         $question->text = $text;
         $question->userId = $userId;
-        $question->created = date("Y-m-d");
+        $question->created = date("Y-m-d H:i:s");
         $question->save();
 
         $sql = "SELECT MAX(id) AS id FROM Question;";
@@ -84,12 +84,14 @@ class AskQuestionForm extends FormModel
         $db->connect();
         $res = $db->executeFetch($sql);
 
-        foreach ($tagArray as $item) {
-            $tag = new Tag();
-            $tag->setDb($this->di->get("dbqb"));
-            $tag->text = $item;
-            $tag->questId = $res->id;
-            $tag->save();
+        if ($tags != "") {
+            foreach ($tagArray as $item) {
+                $tag = new Tag();
+                $tag->setDb($this->di->get("dbqb"));
+                $tag->text = $item;
+                $tag->questId = $res->id;
+                $tag->save();
+            }
         }
 
         $this->form->addOutput("Question was posted.");
